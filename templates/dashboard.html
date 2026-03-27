@@ -14,71 +14,43 @@
             color: white;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 220px;
             height: 100vh;
             position: fixed;
             background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
             padding: 20px;
-        }
-
-        .sidebar h3 {
-            text-align: center;
-            margin-bottom: 30px;
         }
 
         .sidebar a {
             display: block;
             color: white;
-            text-decoration: none;
             padding: 10px;
             margin: 10px 0;
-            border-radius: 10px;
-            transition: 0.3s;
+            text-decoration: none;
         }
 
-        .sidebar a:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* Main */
         .main {
             margin-left: 240px;
             padding: 20px;
         }
 
-        /* Cards (FIXED COLORS) */
         .card-box {
-            border-radius: 20px;
             padding: 20px;
+            border-radius: 20px;
             color: white;
-            transition: 0.3s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             text-align: center;
         }
 
-        .card-box:hover {
-            transform: translateY(-5px);
-        }
+        .blue { background: #2196f3; }
+        .green { background: #4caf50; }
+        .orange { background: #ff9800; }
 
-        .blue { background: linear-gradient(45deg, #2196f3, #21cbf3); }
-        .green { background: linear-gradient(45deg, #4caf50, #81c784); }
-        .orange { background: linear-gradient(45deg, #ff9800, #ffb74d); }
-
-        /* Table */
         table {
             background: white;
             color: black;
-            border-radius: 10px;
         }
 
-        table tr:hover {
-            background: #f1f1f1;
-        }
-
-        /* Graph */
         .graph-box {
             max-width: 500px;
             margin: auto;
@@ -89,49 +61,43 @@
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
     <h3>🏥 HMS</h3>
     <a href="/dashboard">Dashboard</a>
     <a href="/register">Add Patient</a>
-    <a href="/change_password">Change Password</a>
     <a href="/logout">Logout</a>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-    <h2 class="mb-4">Dashboard</h2>
+    <h2>Dashboard</h2>
 
     <!-- STATS -->
-    <div class="row mb-4">
+    <div class="row">
         <div class="col-md-4">
             <div class="card-box blue">
-                <h5>Total Patients</h5>
-                <h3>{{ patients|length }}</h3>
+                <h5>Total</h5>
+                <h3>{{ total }}</h3>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card-box green">
-                <h5>Male Patients</h5>
-                <h3>{{ patients|selectattr(3, 'equalto', 'male')|list|length }}</h3>
+                <h5>Male</h5>
+                <h3>{{ male }}</h3>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card-box orange">
-                <h5>Female Patients</h5>
-                <h3>{{ patients|selectattr(3, 'equalto', 'female')|list|length }}</h3>
+                <h5>Female</h5>
+                <h3>{{ female }}</h3>
             </div>
         </div>
     </div>
 
-    <!-- SEARCH -->
-    <input type="text" id="search" class="form-control mb-3" placeholder="Search patient...">
-
     <!-- TABLE -->
-    <table class="table table-bordered" id="patientTable">
+    <table class="table mt-4">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -139,51 +105,28 @@
             <th>Gender</th>
             <th>Phone</th>
             <th>Disease</th>
-            <th>Action</th>
         </tr>
 
         {% for p in patients %}
         <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ p[1] }}</td>
-            <td>{{ p[2] }}</td>
-            <td>{{ p[3] }}</td>
-            <td>{{ p[4] }}</td>
-            <td>{{ p[5] }}</td>
-            <td>
-                <a href="/view/{{ p[0] }}" class="btn btn-info btn-sm">View</a>
-                <a href="/edit/{{ p[0] }}" class="btn btn-success btn-sm">Edit</a>
-                <a href="/delete/{{ p[0] }}" class="btn btn-danger btn-sm">Delete</a>
-            </td>
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.age }}</td>
+            <td>{{ p.gender }}</td>
+            <td>{{ p.phone }}</td>
+            <td>{{ p.disease }}</td>
         </tr>
         {% endfor %}
     </table>
 
     <!-- GRAPH -->
     <div class="card-box mt-4 graph-box text-dark">
-        <h5 class="text-center">Patient Statistics</h5>
         <canvas id="myChart"></canvas>
     </div>
 
 </div>
 
 <script>
-// SEARCH
-document.getElementById("search").addEventListener("keyup", function() {
-    let value = this.value.toLowerCase();
-    let rows = document.querySelectorAll("#patientTable tr");
-
-    rows.forEach((row, index) => {
-        if(index === 0) return;
-        row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
-    });
-});
-
-// GRAPH
-var total = {{ patients|length }};
-var male = {{ patients|selectattr(3, 'equalto', 'male')|list|length }};
-var female = {{ patients|selectattr(3, 'equalto', 'female')|list|length }};
-
 var ctx = document.getElementById('myChart').getContext('2d');
 
 new Chart(ctx, {
@@ -191,14 +134,8 @@ new Chart(ctx, {
     data: {
         labels: ['Total', 'Male', 'Female'],
         datasets: [{
-            label: 'Patients',
-            data: [total, male, female],
-            backgroundColor: ['#2196f3', '#4caf50', '#ff9800']
+            data: [{{ total }}, {{ male }}, {{ female }}]
         }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
     }
 });
 </script>
