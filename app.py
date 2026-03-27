@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request
 
 app = Flask(__name__)
 
-# Dummy data (test ke liye)
+# Dummy data
 patients = [
     {"id": 1, "name": "rishabh", "age": 23, "gender": "male", "phone": "9090909090", "disease": "khasi"},
     {"id": 2, "name": "mayank", "age": 20, "gender": "male", "phone": "9090909090", "disease": "fever"},
@@ -12,19 +12,19 @@ patients = [
     {"id": 6, "name": "rohan", "age": 99, "gender": "male", "phone": "9090909090", "disease": "accident"},
 ]
 
-# 👉 HOME → direct dashboard
+# 👉 HOME
 @app.route('/')
 def home():
-    return redirect('/dashboard')
+    return redirect('/login')
 
-# 👉 LOGIN PAGE
+# 👉 LOGIN
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         return redirect('/dashboard')
     return render_template('login.html')
 
-# 👉 DASHBOARD (MAIN PAGE)
+# 👉 DASHBOARD
 @app.route('/dashboard')
 def dashboard():
     total = len(patients)
@@ -39,6 +39,11 @@ def dashboard():
         female=female
     )
 
-# 👉 RUN APP
+# 👉 LOGOUT (FIXED)
+@app.route('/logout')
+def logout():
+    return redirect('/login')
+
+# 👉 RUN
 if __name__ == '__main__':
     app.run(debug=True)
