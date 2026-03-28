@@ -8,23 +8,21 @@ patients = [
     {"id": 2, "name": "mayank", "age": 20, "gender": "male", "phone": "9090909090", "disease": "fever"},
     {"id": 3, "name": "jadu", "age": 45, "gender": "male", "phone": "8900808080", "disease": "fever"},
     {"id": 4, "name": "tannu", "age": 21, "gender": "female", "phone": "1234567898", "disease": "cough"},
-    {"id": 5, "name": "tasu", "age": 29, "gender": "female", "phone": "6307593233", "disease": "chhik ana"},
-    {"id": 6, "name": "rohan", "age": 99, "gender": "male", "phone": "9090909090", "disease": "accident"},
 ]
 
-# 👉 HOME
+# HOME
 @app.route('/')
 def home():
     return redirect('/login')
 
-# 👉 LOGIN
+# LOGIN
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         return redirect('/dashboard')
     return render_template('login.html')
 
-# 👉 DASHBOARD
+# DASHBOARD
 @app.route('/dashboard')
 def dashboard():
     total = len(patients)
@@ -39,11 +37,33 @@ def dashboard():
         female=female
     )
 
-# 👉 LOGOUT (FIXED)
+# LOGOUT
 @app.route('/logout')
 def logout():
     return redirect('/login')
 
-# 👉 RUN
+# ADD PATIENT
+@app.route('/register')
+def register():
+    return "<h2>Add Patient Page (working)</h2>"
+
+# VIEW
+@app.route('/view/<int:id>')
+def view(id):
+    return f"<h2>Viewing Patient ID: {id}</h2>"
+
+# EDIT
+@app.route('/edit/<int:id>')
+def edit(id):
+    return f"<h2>Editing Patient ID: {id}</h2>"
+
+# DELETE
+@app.route('/delete/<int:id>')
+def delete(id):
+    global patients
+    patients = [p for p in patients if p["id"] != id]
+    return redirect('/dashboard')
+
+# RUN
 if __name__ == '__main__':
     app.run(debug=True)
