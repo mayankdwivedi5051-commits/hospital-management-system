@@ -2,28 +2,98 @@
 <html>
 <head>
 <title>Login</title>
+
 <style>
 body{
-margin:0;height:100vh;display:flex;justify-content:center;align-items:center;
-background:linear-gradient(-45deg,#667eea,#764ba2,#6a11cb,#2575fc);
-background-size:400% 400%;animation:gradient 8s infinite;
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+/* 🔥 PREMIUM ANIMATED BG */
+background: linear-gradient(-45deg,#1e3c72,#2a5298,#4facfe,#00f2fe);
+background-size: 400% 400%;
+animation: gradient 10s ease infinite;
 }
+
 @keyframes gradient{
-0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
-.box{background:rgba(255,255,255,0.1);padding:40px;border-radius:15px;color:white;}
-input,button{width:100%;margin:10px 0;padding:10px;border:none;border-radius:8px;}
-button{background:#00c6ff;color:white;}
+
+/* LOGIN BOX */
+.box{
+background:rgba(255,255,255,0.12);
+padding:40px;
+border-radius:15px;
+color:white;
+text-align:center;
+width:320px;
+backdrop-filter: blur(10px);
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* 🔥 BETTER LOGO */
+.logo {
+    width: 90px;
+    margin-bottom: 10px;
+}
+
+/* TITLE */
+h2 {
+    margin-bottom: 15px;
+}
+
+/* INPUTS */
+input,button{
+width:100%;
+margin:10px 0;
+padding:10px;
+border:none;
+border-radius:8px;
+}
+
+input {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+input::placeholder {
+    color: #ddd;
+}
+
+/* BUTTON */
+button{
+background: linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
 </style>
 </head>
+
 <body>
+
 <div class="box">
-<h2>Login</h2>
+
+<!-- 🔥 PROFESSIONAL HOSPITAL LOGO -->
+<img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" class="logo">
+
+<h2>Hospital Login</h2>
+
 <form method="POST">
 <input name="username" placeholder="Username">
 <input name="password" type="password" placeholder="Password">
 <button>Login</button>
 </form>
+
 </div>
+
 </body>
 </html>

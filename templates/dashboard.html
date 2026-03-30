@@ -7,7 +7,7 @@
 body {
     margin:0;
     font-family: 'Segoe UI', Arial;
-    background: linear-gradient(135deg,#1e3c72,#2a5298);
+    background: linear-gradient(135deg,#2b5876,#4e4376);
     padding: 20px;
 }
 
@@ -18,12 +18,12 @@ h2 {
     margin-bottom: 25px;
 }
 
-/* MAIN CONTAINER */
+/* CONTAINER */
 .container {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.08);
     padding: 20px;
     border-radius: 15px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
 }
 
 /* CARDS */
@@ -35,23 +35,28 @@ h2 {
 
 .card {
     flex: 1;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 22px;
+    border-radius: 12px;
     text-align: center;
     color: white;
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    transition: 0.3s;
 }
 
-.total { background:#6c5ce7; }
+.card:hover {
+    transform: translateY(-6px);
+}
+
+/* SAME COLORS */
+.total { background:#ff7675; }
 .male { background:#00b894; }
 .female { background:#0984e3; }
 
 /* BUTTONS */
 .top-btns {
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    justify-content: space-between;
     margin-bottom: 15px;
 }
 
@@ -61,16 +66,22 @@ h2 {
     text-decoration: none;
     border-radius: 6px;
     font-size: 14px;
+    transition: 0.3s;
 }
 
-.add { background: #0984e3; }
+.add { background: #6c5ce7; }
 .logout { background: #d63031; }
+
+.btn:hover {
+    opacity: 0.8;
+}
 
 /* TABLE */
 .table-box {
     background: white;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
 }
 
 table {
@@ -84,25 +95,45 @@ th, td {
 }
 
 th {
-    background: #2c3e50;
+    background: #2d3436;
     color: white;
 }
 
 tr:nth-child(even) {
-    background: #f8f9fa;
+    background: #f5f6fa;
 }
 
 /* ACTION BUTTONS */
-.view { background:#3498db; padding:5px 10px; border-radius:4px; color:white; }
-.edit { background:#27ae60; padding:5px 10px; border-radius:4px; color:white; }
-.delete { background:#e74c3c; padding:5px 10px; border-radius:4px; color:white; }
+.view {
+    background:#00cec9;
+    padding:5px 10px;
+    border-radius:5px;
+    color:white;
+    text-decoration:none;
+}
+
+.edit {
+    background:#2ecc71;
+    padding:5px 10px;
+    border-radius:5px;
+    color:white;
+    text-decoration:none;
+}
+
+.delete {
+    background:#e74c3c;
+    padding:5px 10px;
+    border-radius:5px;
+    color:white;
+    text-decoration:none;
+}
 
 /* GRAPH */
 .chart-box {
     margin-top: 25px;
     background: white;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 300px;
     margin-left: auto;
     margin-right: auto;
