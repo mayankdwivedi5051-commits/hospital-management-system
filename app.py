@@ -1,16 +1,29 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, request, redirect
+import sqlite3
 
 app = Flask(__name__)
 
-# Dummy data
-patients = [
-    {"id": 1, "name": "rishabh", "age": 23, "gender": "male", "phone": "9090909090", "disease": "khasi"},
-    {"id": 2, "name": "mayank", "age": 20, "gender": "male", "phone": "9090909090", "disease": "fever"},
-    {"id": 3, "name": "jadu", "age": 45, "gender": "male", "phone": "8900808080", "disease": "fever"},
-    {"id": 4, "name": "tannu", "age": 21, "gender": "female", "phone": "1234567898", "disease": "cough"},
-]
+def get_db():
+    conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row
+    return conn
 
-# HOME
+def init_db():
+    conn = get_db()
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS patients(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        age TEXT,
+        gender TEXT,
+        phone TEXT,
+        disease TEXT
+    )
+    """)
+    conn.close()
+
+init_db()
+
 @app.route('/')
 def home():
     return redirect('/login')
@@ -20,50 +33,73 @@ def home():
 def login():
     if request.method == 'POST':
         return redirect('/dashboard')
-    return render_template('login.html')
-
-# DASHBOARD
-@app.route('/dashboard')
-def dashboard():
-    total = len(patients)
-    male = len([p for p in patients if p["gender"] == "male"])
-    female = len([p for p in patients if p["gender"] == "female"])
-
-    return render_template(
-        'dashboard.html',
-        patients=patients,
-        total=total,
-        male=male,
-        female=female
-    )
+    return render_template("login.html")
 
 # LOGOUT
 @app.route('/logout')
 def logout():
     return redirect('/login')
 
-# ADD PATIENT
-@app.route('/register')
+# DASHBOARD
+@app.route('/dashboard')
+def dashboard():
+    conn = get_db()
+    patients = conn.execute("SELECT * FROM patients").fetchall()
+    conn.close()
+
+    total = len(patients)
+    male = len([p for p in patients if p["gender"].lower() == "male"])
+    female = len([p for p in patients if p["gender"].lower() == "female"])
+
+    return render_template("dashboard.html", patients=patients, total=total, male=male, female=female)
+
+# ADD
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return "<h2>Add Patient Page (working)</h2>"
+    if request.method == 'POST':
+        conn = get_db()
+        conn.execute("INSERT INTO patients(name,age,gender,phone,disease) VALUES (?,?,?,?,?)",
+                     (request.form['name'], request.form['age'], request.form['gender'],
+                      request.form['phone'], request.form['disease']))
+        conn.commit()
+        conn.close()
+        return redirect('/dashboard')
+
+    return render_template("register.html")
 
 # VIEW
 @app.route('/view/<int:id>')
 def view(id):
-    return f"<h2>Viewing Patient ID: {id}</h2>"
+    conn = get_db()
+    patient = conn.execute("SELECT * FROM patients WHERE id=?", (id,)).fetchone()
+    conn.close()
+    return render_template("view.html", patient=patient)
 
 # EDIT
-@app.route('/edit/<int:id>')
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit(id):
-    return f"<h2>Editing Patient ID: {id}</h2>"
+    conn = get_db()
+
+    if request.method == 'POST':
+        conn.execute("""UPDATE patients SET name=?,age=?,gender=?,phone=?,disease=? WHERE id=?""",
+                     (request.form['name'], request.form['age'], request.form['gender'],
+                      request.form['phone'], request.form['disease'], id))
+        conn.commit()
+        conn.close()
+        return redirect('/dashboard')
+
+    patient = conn.execute("SELECT * FROM patients WHERE id=?", (id,)).fetchone()
+    conn.close()
+    return render_template("edit.html", patient=patient)
 
 # DELETE
 @app.route('/delete/<int:id>')
 def delete(id):
-    global patients
-    patients = [p for p in patients if p["id"] != id]
+    conn = get_db()
+    conn.execute("DELETE FROM patients WHERE id=?", (id,))
+    conn.commit()
+    conn.close()
     return redirect('/dashboard')
 
-# RUN
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
