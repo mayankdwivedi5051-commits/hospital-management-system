@@ -1,6 +1,113 @@
-<h2>{{patient.name}}</h2>
-<p>{{patient.age}}</p>
-<p>{{patient.gender}}</p>
-<p>{{patient.phone}}</p>
-<p>{{patient.disease}}</p>
-<a href="/dashboard">Back</a>
+<!DOCTYPE html>
+<html>
+<head>
+<title>View Patient</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(135deg,#1e3c72,#2a5298);
+font-family: 'Segoe UI', Arial;
+}
+
+/* MAIN BOX */
+.card{
+background: rgba(255,255,255,0.1);
+padding:30px;
+border-radius:15px;
+color:white;
+width:350px;
+backdrop-filter: blur(12px);
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* TITLE */
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+/* ROW */
+.row{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+/* LABEL */
+.label{
+font-weight:bold;
+color:#dfe6e9;
+}
+
+/* VALUE */
+.value{
+color:#ffffff;
+}
+
+/* BUTTON */
+.back{
+display:block;
+margin-top:20px;
+text-align:center;
+padding:10px;
+background:#00c6ff;
+color:white;
+text-decoration:none;
+border-radius:8px;
+}
+
+.back:hover{
+opacity:0.9;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Patient Details</h2>
+
+<div class="row">
+<div class="label">ID:</div>
+<div class="value">{{ patient.id }}</div>
+</div>
+
+<div class="row">
+<div class="label">Name:</div>
+<div class="value">{{ patient.name }}</div>
+</div>
+
+<div class="row">
+<div class="label">Age:</div>
+<div class="value">{{ patient.age }}</div>
+</div>
+
+<div class="row">
+<div class="label">Gender:</div>
+<div class="value">{{ patient.gender }}</div>
+</div>
+
+<div class="row">
+<div class="label">Phone:</div>
+<div class="value">{{ patient.phone }}</div>
+</div>
+
+<div class="row">
+<div class="label">Disease:</div>
+<div class="value">{{ patient.disease }}</div>
+</div>
+
+<a href="/dashboard" class="back">⬅ Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>
