@@ -53,7 +53,7 @@ def dashboard():
 
     return render_template("dashboard.html", patients=patients, total=total, male=male, female=female)
 
-# ADD
+# ADD (REGISTER)
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -63,7 +63,9 @@ def register():
                       request.form['phone'], request.form['disease']))
         conn.commit()
         conn.close()
-        return redirect('/dashboard')
+
+        # 🔥 FINAL CHANGE (ONLY THIS LINE CHANGED)
+        return render_template("register.html", msg="Registration Successful!")
 
     return render_template("register.html")
 

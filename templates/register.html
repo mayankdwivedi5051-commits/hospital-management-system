@@ -1,8 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register Patient</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(135deg,#2b5876,#4e4376);
+font-family: Arial;
+}
+
+.box{
+background: rgba(255,255,255,0.1);
+padding:30px;
+border-radius:15px;
+color:white;
+width:320px;
+backdrop-filter: blur(10px);
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+h2{
+text-align:center;
+margin-bottom:15px;
+}
+
+/* SUCCESS MESSAGE */
+.success{
+text-align:center;
+color:#00ffcc;
+margin-bottom:10px;
+font-weight:bold;
+}
+
+input, select, button{
+width:100%;
+margin:8px 0;
+padding:10px;
+border:none;
+border-radius:8px;
+}
+
+input, select{
+background:rgba(255,255,255,0.2);
+color:white;
+}
+
+input::placeholder{
+color:#ddd;
+}
+
+button{
+background:#00c6ff;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Add Patient</h2>
+
+<!-- 🔥 SUCCESS MESSAGE -->
+{% if msg %}
+<div class="success">{{ msg }}</div>
+{% endif %}
+
 <form method="POST">
-<input name="name" placeholder="Name">
-<input name="age" placeholder="Age">
-<input name="gender" placeholder="Gender">
-<input name="phone" placeholder="Phone">
-<input name="disease" placeholder="Disease">
-<button>Add</button>
+
+<input type="text" name="name" placeholder="Name" required>
+
+<input type="text" name="age" placeholder="Age" required>
+
+<select name="gender" required>
+<option value="">Select Gender</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+</select>
+
+<input type="text" name="phone" placeholder="Phone" required>
+
+<input type="text" name="disease" placeholder="Disease" required>
+
+<button type="submit">Register</button>
+
 </form>
+
+</div>
+
+</body>
+</html>
