@@ -11,14 +11,12 @@ body {
     padding: 20px;
 }
 
-/* TITLE */
 h2 {
     text-align: center;
     color: white;
     margin-bottom: 25px;
 }
 
-/* CONTAINER */
 .container {
     background: rgba(255,255,255,0.08);
     padding: 20px;
@@ -26,7 +24,6 @@ h2 {
     backdrop-filter: blur(12px);
 }
 
-/* CARDS */
 .cards {
     display: flex;
     gap: 20px;
@@ -41,19 +38,12 @@ h2 {
     color: white;
     font-weight: 600;
     box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-    transition: 0.3s;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-}
-
-/* SAME COLORS */
 .total { background:#ff7675; }
 .male { background:#00b894; }
 .female { background:#0984e3; }
 
-/* BUTTONS */
 .top-btns {
     display: flex;
     justify-content: space-between;
@@ -65,15 +55,18 @@ h2 {
     color: white;
     text-decoration: none;
     border-radius: 6px;
-    font-size: 14px;
-    transition: 0.3s;
 }
 
 .add { background: #6c5ce7; }
 .logout { background: #d63031; }
 
-.btn:hover {
-    opacity: 0.8;
+/* SEARCH */
+#searchInput {
+    padding:8px;
+    width:250px;
+    border-radius:5px;
+    border:none;
+    outline:none;
 }
 
 /* TABLE */
@@ -81,7 +74,6 @@ h2 {
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
 }
 
 table {
@@ -104,29 +96,9 @@ tr:nth-child(even) {
 }
 
 /* ACTION BUTTONS */
-.view {
-    background:#00cec9;
-    padding:5px 10px;
-    border-radius:5px;
-    color:white;
-    text-decoration:none;
-}
-
-.edit {
-    background:#2ecc71;
-    padding:5px 10px;
-    border-radius:5px;
-    color:white;
-    text-decoration:none;
-}
-
-.delete {
-    background:#e74c3c;
-    padding:5px 10px;
-    border-radius:5px;
-    color:white;
-    text-decoration:none;
-}
+.view { background:#00cec9; padding:5px 10px; border-radius:5px; color:white; }
+.edit { background:#2ecc71; padding:5px 10px; border-radius:5px; color:white; }
+.delete { background:#e74c3c; padding:5px 10px; border-radius:5px; color:white; }
 
 /* GRAPH */
 .chart-box {
@@ -163,12 +135,16 @@ Female<br><h2>{{ female }}</h2>
 </div>
 
 <div class="top-btns">
+<input type="text" id="searchInput" placeholder="Search patient...">
+
+<div>
 <a href="/register" class="btn add">Add Patient</a>
 <a href="/logout" class="btn logout">Logout</a>
 </div>
+</div>
 
 <div class="table-box">
-<table>
+<table id="patientTable">
 <tr>
 <th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th>Disease</th><th>Action</th>
 </tr>
@@ -210,6 +186,18 @@ new Chart(document.getElementById('chart'), {
             backgroundColor: ['#00b894', '#0984e3']
         }]
     }
+});
+
+/* SEARCH */
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    let input = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#patientTable tr");
+
+    rows.forEach((row, index) => {
+        if(index === 0) return;
+        let text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+    });
 });
 </script>
 
