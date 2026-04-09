@@ -3,6 +3,8 @@
 <head>
 <title>View Patient</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{
 margin:0;
@@ -11,10 +13,9 @@ display:flex;
 justify-content:center;
 align-items:center;
 background: linear-gradient(135deg,#1e3c72,#2a5298);
-font-family: 'Segoe UI', Arial;
+font-family: Arial;
 }
 
-/* MAIN BOX */
 .card{
 background: rgba(255,255,255,0.1);
 padding:30px;
@@ -25,13 +26,6 @@ backdrop-filter: blur(12px);
 box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
-/* TITLE */
-h2{
-text-align:center;
-margin-bottom:20px;
-}
-
-/* ROW */
 .row{
 display:flex;
 justify-content:space-between;
@@ -39,18 +33,6 @@ padding:10px 0;
 border-bottom:1px solid rgba(255,255,255,0.2);
 }
 
-/* LABEL */
-.label{
-font-weight:bold;
-color:#dfe6e9;
-}
-
-/* VALUE */
-.value{
-color:#ffffff;
-}
-
-/* BUTTON */
 .back{
 display:block;
 margin-top:20px;
@@ -61,12 +43,7 @@ color:white;
 text-decoration:none;
 border-radius:8px;
 }
-
-.back:hover{
-opacity:0.9;
-}
 </style>
-
 </head>
 
 <body>
@@ -75,37 +52,14 @@ opacity:0.9;
 
 <h2>Patient Details</h2>
 
-<div class="row">
-<div class="label">ID:</div>
-<div class="value">{{ patient.id }}</div>
-</div>
+<div class="row"><b>ID:</b> {{ patient.id }}</div>
+<div class="row"><b>Name:</b> {{ patient.name }}</div>
+<div class="row"><b>Age:</b> {{ patient.age }}</div>
+<div class="row"><b>Gender:</b> {{ patient.gender }}</div>
+<div class="row"><b>Phone:</b> {{ patient.phone }}</div>
+<div class="row"><b>Disease:</b> {{ patient.disease }}</div>
 
-<div class="row">
-<div class="label">Name:</div>
-<div class="value">{{ patient.name }}</div>
-</div>
-
-<div class="row">
-<div class="label">Age:</div>
-<div class="value">{{ patient.age }}</div>
-</div>
-
-<div class="row">
-<div class="label">Gender:</div>
-<div class="value">{{ patient.gender }}</div>
-</div>
-
-<div class="row">
-<div class="label">Phone:</div>
-<div class="value">{{ patient.phone }}</div>
-</div>
-
-<div class="row">
-<div class="label">Disease:</div>
-<div class="value">{{ patient.disease }}</div>
-</div>
-
-<a href="/dashboard" class="back">⬅ Back to Dashboard</a>
+<a href="/dashboard" class="back">Back</a>
 
 </div>
 

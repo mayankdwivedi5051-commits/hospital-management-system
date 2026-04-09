@@ -3,6 +3,8 @@
 <head>
 <title>Edit Patient</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{
 margin:0;
@@ -11,10 +13,9 @@ display:flex;
 justify-content:center;
 align-items:center;
 background: linear-gradient(135deg,#1e3c72,#2a5298);
-font-family: 'Segoe UI', Arial;
+font-family: Arial;
 }
 
-/* BOX */
 .card{
 background: rgba(255,255,255,0.1);
 padding:30px;
@@ -25,12 +26,6 @@ backdrop-filter: blur(12px);
 box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
-h2{
-text-align:center;
-margin-bottom:15px;
-}
-
-/* INPUTS */
 input, select, button{
 width:100%;
 margin:8px 0;
@@ -39,28 +34,11 @@ border:none;
 border-radius:8px;
 }
 
-input, select{
-background:rgba(255,255,255,0.2);
-color:white;
-}
-
-input::placeholder{
-color:#ddd;
-}
-
-/* BUTTON */
 button{
 background:#00c6ff;
 color:white;
-font-weight:bold;
-cursor:pointer;
 }
 
-button:hover{
-opacity:0.9;
-}
-
-/* BACK BUTTON */
 .back{
 display:block;
 margin-top:10px;
@@ -72,7 +50,6 @@ text-decoration:none;
 border-radius:8px;
 }
 </style>
-
 </head>
 
 <body>
@@ -83,24 +60,22 @@ border-radius:8px;
 
 <form method="POST">
 
-<input type="text" name="name" value="{{ patient.name }}" required>
+<input name="name" value="{{ patient.name }}">
+<input name="age" value="{{ patient.age }}">
 
-<input type="text" name="age" value="{{ patient.age }}" required>
-
-<select name="gender" required>
+<select name="gender">
 <option value="Male" {% if patient.gender=="Male" %}selected{% endif %}>Male</option>
 <option value="Female" {% if patient.gender=="Female" %}selected{% endif %}>Female</option>
 </select>
 
-<input type="text" name="phone" value="{{ patient.phone }}" required>
+<input name="phone" value="{{ patient.phone }}">
+<input name="disease" value="{{ patient.disease }}">
 
-<input type="text" name="disease" value="{{ patient.disease }}" required>
-
-<button type="submit">Update</button>
+<button>Update</button>
 
 </form>
 
-<a href="/dashboard" class="back">⬅ Back</a>
+<a href="/dashboard" class="back">Back</a>
 
 </div>
 
