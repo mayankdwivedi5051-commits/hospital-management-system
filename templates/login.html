@@ -3,6 +3,9 @@
 <head>
 <title>Login</title>
 
+<!-- ✅ RESPONSIVE FIX -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{
 margin:0;
@@ -10,70 +13,65 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-
-/* 🔥 PREMIUM ANIMATED BG */
 background: linear-gradient(-45deg,#1e3c72,#2a5298,#4facfe,#00f2fe);
-background-size: 400% 400%;
-animation: gradient 10s ease infinite;
+background-size:400% 400%;
+animation:gradient 10s ease infinite;
+font-family: Arial;
 }
 
+/* ANIMATION */
 @keyframes gradient{
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
 }
 
-/* LOGIN BOX */
+/* 🔥 MAIN BOX FIX */
 .box{
 background:rgba(255,255,255,0.12);
-padding:40px;
+padding:30px;
 border-radius:15px;
 color:white;
 text-align:center;
-width:320px;
+
+width:90%;          /* ✅ responsive */
+max-width:350px;    /* ✅ limit */
+
 backdrop-filter: blur(10px);
-box-shadow:0 8px 25px rgba(0,0,0,0.3);
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
 }
 
-/* 🔥 BETTER LOGO */
-.logo {
-    width: 90px;
-    margin-bottom: 10px;
-}
-
-/* TITLE */
-h2 {
-    margin-bottom: 15px;
-}
-
-/* INPUTS */
+/* INPUT + BUTTON */
 input,button{
 width:100%;
 margin:10px 0;
-padding:10px;
+padding:12px;
 border:none;
 border-radius:8px;
+font-size:16px;
 }
 
-input {
-    background: rgba(255,255,255,0.2);
-    color: white;
+/* INPUT STYLE */
+input{
+background:rgba(255,255,255,0.2);
+color:white;
 }
 
-input::placeholder {
-    color: #ddd;
+input::placeholder{
+color:#ddd;
 }
 
 /* BUTTON */
 button{
-background: linear-gradient(45deg,#00c6ff,#0072ff);
+background:#00c6ff;
 color:white;
 font-weight:bold;
 cursor:pointer;
+transition:0.3s;
 }
 
-button:hover {
-    opacity: 0.9;
+button:hover{
+opacity:0.9;
 }
 </style>
 </head>
@@ -82,14 +80,11 @@ button:hover {
 
 <div class="box">
 
-<!-- 🔥 PROFESSIONAL HOSPITAL LOGO -->
-<img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" class="logo">
-
 <h2>Hospital Login</h2>
 
 <form method="POST">
-<input name="username" placeholder="Username">
-<input name="password" type="password" placeholder="Password">
+<input name="username" placeholder="Username" required>
+<input name="password" type="password" placeholder="Password" required>
 <button>Login</button>
 </form>
 
