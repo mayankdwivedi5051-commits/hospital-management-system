@@ -71,6 +71,13 @@ border-radius:8px;
 <input name="phone" value="{{ patient.phone }}">
 <input name="disease" value="{{ patient.disease }}">
 
+<!-- 🔥 NEW FIELDS -->
+<input name="room" value="{{ patient.room }}">
+<input name="payment" value="{{ patient.payment }}">
+<input type="date" name="payment_date" value="{{ patient.payment_date }}">
+<input type="date" name="admit_date" value="{{ patient.admit_date }}">
+<input type="date" name="discharge_date" value="{{ patient.discharge_date }}">
+
 <button>Update</button>
 
 </form>

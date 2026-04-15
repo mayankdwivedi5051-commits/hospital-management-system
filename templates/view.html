@@ -59,6 +59,13 @@ border-radius:8px;
 <div class="row"><b>Phone:</b> {{ patient.phone }}</div>
 <div class="row"><b>Disease:</b> {{ patient.disease }}</div>
 
+<!-- 🔥 NEW FIELDS -->
+<div class="row"><b>Room:</b> {{ patient.room }}</div>
+<div class="row"><b>Payment:</b> ₹{{ patient.payment }}</div>
+<div class="row"><b>Payment Date:</b> {{ patient.payment_date }}</div>
+<div class="row"><b>Admit:</b> {{ patient.admit_date }}</div>
+<div class="row"><b>Discharge:</b> {{ patient.discharge_date }}</div>
+
 <a href="/dashboard" class="back">Back</a>
 
 </div>
