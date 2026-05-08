@@ -30,15 +30,22 @@ h2 {
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
+    flex-wrap:wrap;
 }
 
 .card {
     flex: 1;
+    min-width:120px;
     padding: 18px;
-    border-radius: 10px;
+    border-radius: 12px;
     text-align: center;
     color: white;
     box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
 }
 
 .total { background:#ff7675; }
@@ -51,22 +58,25 @@ h2 {
     justify-content:space-between;
     margin-bottom:10px;
     flex-wrap:wrap;
+    gap:10px;
 }
 
 /* SEARCH */
 #search {
-    padding:8px;
-    border-radius:6px;
+    padding:10px;
+    border-radius:8px;
     border:none;
-    width:200px;
+    width:220px;
+    outline:none;
 }
 
 /* BUTTONS */
 .btn {
-    padding:7px 12px;
-    border-radius:6px;
+    padding:8px 14px;
+    border-radius:8px;
     color:white;
     text-decoration:none;
+    font-weight:bold;
 }
 
 .add { background:#6c5ce7; }
@@ -75,17 +85,19 @@ h2 {
 /* TABLE */
 .table-box {
     background:white;
-    border-radius:10px;
-    overflow:hidden;
+    border-radius:12px;
+    overflow-x:auto;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
 table {
     width:100%;
     border-collapse:collapse;
+    min-width:1100px;
 }
 
 th, td {
-    padding:10px;
+    padding:12px;
     text-align:center;
 }
 
@@ -98,41 +110,67 @@ tr:nth-child(even){
     background:#f1f2f6;
 }
 
+tr:hover{
+    background:#dfe6e9;
+}
+
 /* ACTION */
-.view{background:#00cec9;padding:5px;border-radius:5px;color:white;}
-.edit{background:#2ecc71;padding:5px;border-radius:5px;color:white;}
-.delete{background:#e74c3c;padding:5px;border-radius:5px;color:white;}
+.view{
+background:#00cec9;
+padding:6px 10px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+}
+
+.edit{
+background:#2ecc71;
+padding:6px 10px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+}
+
+.delete{
+background:#e74c3c;
+padding:6px 10px;
+border-radius:6px;
+color:white;
+text-decoration:none;
+}
 
 /* GRAPH */
 .chart {
     margin-top:20px;
     background:white;
-    padding:10px;
-    border-radius:10px;
+    padding:15px;
+    border-radius:12px;
     width:260px;
     margin-left:auto;
     margin-right:auto;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* BOTTOM SECTION */
+/* EXTRA SECTION */
 .extra{
     margin-top:20px;
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:12px;
 }
 
 .box{
     background:white;
-    padding:12px;
-    border-radius:10px;
+    padding:15px;
+    border-radius:12px;
     text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
 .tip{
     background:#f1f2f6;
-    padding:12px;
-    border-radius:10px;
+    padding:15px;
+    border-radius:12px;
     text-align:center;
 }
 
@@ -140,6 +178,31 @@ tr:nth-child(even){
     text-align:center;
     color:white;
     font-size:14px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+body{
+padding:10px;
+}
+
+.cards{
+flex-direction:column;
+}
+
+#search{
+width:100%;
+}
+
+.top{
+flex-direction:column;
+}
+
+.chart{
+width:100%;
+}
+
 }
 </style>
 </head>
@@ -154,9 +217,22 @@ tr:nth-child(even){
 </div>
 
 <div class="cards">
-<div class="card total">Total<br><h2>{{ total }}</h2></div>
-<div class="card male">Male<br><h2>{{ male }}</h2></div>
-<div class="card female">Female<br><h2>{{ female }}</h2></div>
+
+<div class="card total">
+Total Patients
+<h2>{{ total }}</h2>
+</div>
+
+<div class="card male">
+Male Patients
+<h2>{{ male }}</h2>
+</div>
+
+<div class="card female">
+Female Patients
+<h2>{{ female }}</h2>
+</div>
+
 </div>
 
 <div class="top">
@@ -164,7 +240,7 @@ tr:nth-child(even){
 <input type="text" id="search" placeholder="Search patient...">
 
 <div>
-<a href="/register" class="btn add">Add</a>
+<a href="/register" class="btn add">Add Patient</a>
 <a href="/logout" class="btn logout">Logout</a>
 </div>
 
@@ -175,22 +251,66 @@ tr:nth-child(even){
 <table id="table">
 
 <tr>
-<th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th>Disease</th><th>Action</th>
+<th>ID</th>
+<th>Name</th>
+<th>Age</th>
+<th>Gender</th>
+<th>Phone</th>
+<th>Disease</th>
+<th>Room</th>
+<th>Payment</th>
+<th>Admit</th>
+<th>Discharge</th>
+<th>Days</th>
+<th>Action</th>
 </tr>
 
 {% for p in patients %}
 <tr>
+
 <td>{{ loop.index }}</td>
 <td>{{ p.name }}</td>
 <td>{{ p.age }}</td>
 <td>{{ p.gender }}</td>
 <td>{{ p.phone }}</td>
 <td>{{ p.disease }}</td>
+
+<td>{{ p.room }}</td>
+
+<td>
+{% if p.payment %}
+₹{{ p.payment }}
+{% else %}
+-
+{% endif %}
+</td>
+
+<td>
+{% if p.admit_date %}
+{{ p.admit_date[8:10] }}-{{ p.admit_date[5:7] }}-{{ p.admit_date[0:4] }}
+{% endif %}
+</td>
+
+<td>
+{% if p.discharge_date %}
+{{ p.discharge_date[8:10] }}-{{ p.discharge_date[5:7] }}-{{ p.discharge_date[0:4] }}
+{% endif %}
+</td>
+
+<td>
+{% if p.days != "" %}
+{{ p.days }} Days
+{% else %}
+-
+{% endif %}
+</td>
+
 <td>
 <a href="/view/{{ p.id }}" class="view">View</a>
 <a href="/edit/{{ p.id }}" class="edit">Edit</a>
 <a href="/delete/{{ p.id }}" class="delete">Delete</a>
 </td>
+
 </tr>
 {% endfor %}
 
@@ -202,16 +322,16 @@ tr:nth-child(even){
 <canvas id="chart"></canvas>
 </div>
 
-<!-- 🔥 EXTRA BOTTOM SECTION -->
+<!-- EXTRA SECTION -->
 <div class="extra">
 
 <div class="box">
 <h3>Total Patients: {{ total }}</h3>
-<p>Keep your records updated regularly 📋</p>
+<p>Keep your hospital records updated regularly 📋</p>
 </div>
 
 <div class="tip">
-<p>💡 Tip: Use search to quickly find patient records</p>
+<p>💡 Tip: Use search bar to quickly find patient records</p>
 </div>
 
 <div class="footer">
@@ -223,6 +343,7 @@ tr:nth-child(even){
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
 // GRAPH
 new Chart(document.getElementById('chart'), {
     type: 'doughnut',
@@ -237,19 +358,32 @@ new Chart(document.getElementById('chart'), {
 
 // SEARCH
 document.getElementById("search").addEventListener("keyup", function(){
+
 let val = this.value.toLowerCase();
+
 let rows = document.querySelectorAll("#table tr");
 
 rows.forEach((row,i)=>{
+
 if(i==0)return;
-row.style.display = row.innerText.toLowerCase().includes(val) ? "" : "none";
+
+row.style.display =
+row.innerText.toLowerCase().includes(val)
+? ""
+: "none";
+
 });
+
 });
 
 // TIME
 setInterval(()=>{
-document.getElementById("time").innerText = new Date().toLocaleString();
+
+document.getElementById("time").innerText =
+new Date().toLocaleString();
+
 },1000);
+
 </script>
 
 </body>
