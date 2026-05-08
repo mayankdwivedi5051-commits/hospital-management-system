@@ -26,9 +26,15 @@ backdrop-filter: blur(12px);
 box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
+label{
+font-size:13px;
+margin-top:5px;
+display:block;
+}
+
 input, select, button{
 width:100%;
-margin:8px 0;
+margin:5px 0 10px 0;
 padding:10px;
 border:none;
 border-radius:8px;
@@ -60,22 +66,34 @@ border-radius:8px;
 
 <form method="POST">
 
+<label>Name</label>
 <input name="name" value="{{ patient.name }}">
+
+<label>Age</label>
 <input name="age" value="{{ patient.age }}">
 
+<label>Gender</label>
 <select name="gender">
 <option value="Male" {% if patient.gender=="Male" %}selected{% endif %}>Male</option>
 <option value="Female" {% if patient.gender=="Female" %}selected{% endif %}>Female</option>
 </select>
 
+<label>Phone</label>
 <input name="phone" value="{{ patient.phone }}">
+
+<label>Disease</label>
 <input name="disease" value="{{ patient.disease }}">
 
-<!-- 🔥 NEW FIELDS -->
+<label>Room No</label>
 <input name="room" value="{{ patient.room }}">
+
+<label>Payment ₹</label>
 <input name="payment" value="{{ patient.payment }}">
-<input type="date" name="payment_date" value="{{ patient.payment_date }}">
+
+<label>Admit Date</label>
 <input type="date" name="admit_date" value="{{ patient.admit_date }}">
+
+<label>Discharge Date</label>
 <input type="date" name="discharge_date" value="{{ patient.discharge_date }}">
 
 <button>Update</button>

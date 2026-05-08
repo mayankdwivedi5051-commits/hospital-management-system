@@ -34,9 +34,15 @@ color:#00ffcc;
 margin-bottom:10px;
 }
 
+label{
+font-size:13px;
+margin-top:5px;
+display:block;
+}
+
 input, select, button{
 width:100%;
-margin:8px 0;
+margin:5px 0 10px 0;
 padding:10px;
 border:none;
 border-radius:8px;
@@ -61,23 +67,35 @@ color:white;
 
 <form method="POST">
 
-<input name="name" placeholder="Name" required>
-<input name="age" placeholder="Age" required>
+<label>Patient Name</label>
+<input name="name" placeholder="Enter full name" required>
 
+<label>Age</label>
+<input name="age" placeholder="Enter age" required>
+
+<label>Gender</label>
 <select name="gender" required>
-<option value="">Gender</option>
+<option value="">Select Gender</option>
 <option>Male</option>
 <option>Female</option>
 </select>
 
-<input name="phone" placeholder="Phone" required>
-<input name="disease" placeholder="Disease" required>
+<label>Phone Number</label>
+<input name="phone" placeholder="Enter phone number" required>
 
-<!-- 🔥 NEW FIELDS -->
-<input name="room" placeholder="Room No">
-<input name="payment" placeholder="Payment ₹">
-<input type="date" name="payment_date">
+<label>Disease / Problem</label>
+<input name="disease" placeholder="Enter disease" required>
+
+<label>Room Number</label>
+<input name="room" placeholder="Example: 101">
+
+<label>Payment Amount (₹)</label>
+<input name="payment" placeholder="Example: 5000">
+
+<label>Admit Date</label>
 <input type="date" name="admit_date">
+
+<label>Discharge Date</label>
 <input type="date" name="discharge_date">
 
 <button>Register</button>
